@@ -1,1 +1,1 @@
-My personal website based on https://github.com/alshedivat/al-folio
+Personal website based on https://github.com/alshedivat/al-folio
