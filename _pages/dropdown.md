@@ -1,7 +1,11 @@
 ---
 layout: page
 title: submenus
+<<<<<<< HEAD
 nav: false
+=======
+nav: true
+>>>>>>> upstream/main
 nav_order: 8
 dropdown: true
 children:

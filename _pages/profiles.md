@@ -3,7 +3,11 @@ layout: profiles
 permalink: /people/
 title: people
 description: members of the lab or group
+<<<<<<< HEAD
 nav: false
+=======
+nav: true
+>>>>>>> upstream/main
 nav_order: 7
 
 profiles:
