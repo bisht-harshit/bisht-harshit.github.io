@@ -8,11 +8,6 @@
   {% endif %}
 >
   <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
     {% if site.imagemagick.enabled %}
       {% unless include.avoid_scaling %}
         <source
@@ -36,32 +31,27 @@
       {% if include.class %}
         class="{{ include.class }}"
       {% endif %}
+      
+      {% comment %} Enforce dimensions to prevent CLS {% endcomment %}
       {% if include.width %}
         width="{{ include.width }}"
       {% else %}
-        width="100%"
+        width="800"
       {% endif %}
+      
       {% if include.height %}
         height="{{ include.height }}"
       {% else %}
-        height="auto"
+        height="800"
       {% endif %}
-      {% if include['min-width'] or include['min-height'] or include['max-width'] or include['max-height'] %}
-        style="
-          {% if include['min-width'] %}
-            min-width: {{ include.min-width }};
-          {% endif %}
-          {% if include['min-height'] %}
-            min-height: {{ include.min-height }};
-          {% endif %}
-          {% if include['max-width'] %}
-            max-width: {{ include.max-width }};
-          {% endif %}
-          {% if include['max-height'] %}
-            max-height: {{ include.max-height }};
-          {% endif %}
-        "
-      {% endif %}
+      
+      style="max-width: 100%; height: auto; 
+        {% if include['min-width'] %}min-width: {{ include.min-width }};{% endif %}
+        {% if include['min-height'] %}min-height: {{ include.min-height }};{% endif %}
+        {% if include['max-width'] %}max-width: {{ include.max-width }};{% endif %}
+        {% if include['max-height'] %}max-height: {{ include.max-height }};{% endif %}
+      "
+      
       {% if include.alt %}
         alt="{{ include.alt }}"
       {% endif %}
@@ -75,6 +65,11 @@
         loading="{{ include.loading }}"
       {% elsif site.lazy_loading_images %}
         loading="lazy"
+      {% else %}
+        loading="lazy" 
+      {% endif %}
+      {% if include.fetchpriority %}
+        fetchpriority="{{ include.fetchpriority }}"
       {% endif %}
       onerror="this.onerror=null; $('.responsive-img-srcset').remove();"
     >
