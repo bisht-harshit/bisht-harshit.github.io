@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why I Switched to a Framework-Free Website — Harshit Bisht</title>
+  <meta name="description" content="After years of fighting dependency updates and broken builds, I rebuilt my academic site with nothing but HTML and CSS.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <!--
+        NOTE: because this file is inside blog/, the links
+        go up one level with "../" — like going up one floor
+        in a building to reach the lobby.
+      -->
+      <a href="../index.html" class="nav-name">Harshit Bisht</a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../publications.html">Papers</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li>
+          <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+            <span id="theme-icon">☾</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="content">
+
+    <a href="../blog.html" class="back-link">← Back to blog</a>
+
+    <h1>Why I Switched to a Framework-Free Website</h1>
+    <div class="post-meta">June 15, 2026 · 5 min read</div>
+
+    <div class="post-body">
+
+      <p>
+        For the past three years, my personal website ran on Jekyll — a static site
+        generator that takes Markdown files and turns them into HTML. In theory, it
+        was perfect: I could write blog posts in a simple text format and let the tool
+        handle the messy details. In practice, it was a recurring headache.
+      </p>
+
+      <h2>The problem with dependencies</h2>
+
+      <p>
+        Every few months, I'd try to update my site and discover that something had
+        broken. Ruby version conflicts, deprecated gems, build errors that produced
+        cryptic messages. It felt like owning a car that needed a different kind of
+        gasoline every season — the engine was fine, but the fuel supply chain kept
+        changing underneath me.
+      </p>
+
+      <blockquote>
+        The best technology is the kind you can forget about. If your website
+        tooling demands attention when you're trying to focus on content, the
+        tooling is working against you.
+      </blockquote>
+
+      <p>
+        This isn't unique to Jekyll. Hugo, Gatsby, Next.js — every framework
+        introduces a layer of indirection between what you write and what appears
+        on screen. That layer has its own update cycle, its own breaking changes,
+        its own community churn. For a complex web application, the trade-off is
+        worth it. For an academic personal site with five pages, it's overhead
+        with no payoff.
+      </p>
+
+      <h2>What I did instead</h2>
+
+      <p>
+        I rewrote everything in plain HTML and CSS. No build step, no package
+        manager, no <code>node_modules</code> folder. The entire site is a handful
+        of <code>.html</code> files and one <code>style.css</code>.
+      </p>
+
+      <p>
+        Modern CSS is remarkably powerful. Features like flexbox, grid, custom
+        properties (variables), and media queries handle responsive layouts,
+        theming, and component-like styling without any JavaScript framework.
+        The dark mode toggle on this site is 15 lines of vanilla JS.
+      </p>
+
+      <h2>The benefits</h2>
+
+      <ul>
+        <li><strong>Zero maintenance:</strong> HTML and CSS don't have version conflicts. A page written today will render identically in 2036.</li>
+        <li><strong>Instant builds:</strong> There's no build step. I edit a file, push to GitHub, and it's live in seconds.</li>
+        <li><strong>Full understanding:</strong> I can read and modify every line of my site. Nothing is hidden inside a framework's abstractions.</li>
+        <li><strong>Speed:</strong> No JavaScript bundle to download. The site loads in under 200ms on a slow connection.</li>
+      </ul>
+
+      <h2>The trade-off</h2>
+
+      <p>
+        The main cost is repetition. The navigation bar is copy-pasted across
+        every page. If I add a new nav link, I update it in five files. For a
+        site this small, that takes about 30 seconds. For a site with 200 pages,
+        I'd want a different approach — but academic sites rarely have that many pages.
+      </p>
+
+      <p>
+        Blog posts require writing HTML instead of Markdown. But HTML for prose
+        is simple: <code>&lt;p&gt;</code> for paragraphs, <code>&lt;h2&gt;</code>
+        for headings, <code>&lt;a&gt;</code> for links. Once you know five tags,
+        you know enough.
+      </p>
+
+      <h2>Should you do this?</h2>
+
+      <p>
+        If you're an academic maintaining a personal site and you've been frustrated
+        by framework churn, I'd strongly recommend trying plain HTML. It's less
+        glamorous than the latest React-based static site generator, but glamour
+        isn't what you need. You need something that works reliably while you focus
+        on research.
+      </p>
+
+      <div class="divider"><span class="diamond"></span></div>
+
+      <p>
+        <em>
+          If you'd like to use this site as a starting point for your own,
+          the source is on <a href="#">GitHub</a>. Fork it, replace my name
+          with yours, and you're done.
+        </em>
+      </p>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    Harshit Bisht · Built with plain HTML & CSS
+  </footer>
+
+  <script>
+    function updateIcon() {
+      var theme = document.documentElement.getAttribute('data-theme');
+      document.getElementById('theme-icon').textContent = theme === 'dark' ? '☀' : '☾';
+    }
+    function toggleTheme() {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateIcon();
+    }
+    updateIcon();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Harshit Bisht</title>
+  <meta name="description" content="Blog posts by Harshit Bisht on AI research, interpretability, and mathematics.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-name">Harshit Bisht</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="publications.html">Papers</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li>
+          <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+            <span id="theme-icon">☾</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="content">
+
+    <h1>Blog</h1>
+
+    <!--
+      HOW TO ADD A NEW POST:
+      1. Create a new .html file in the blog/ folder (copy sample-post.html)
+      2. Add a new <a class="blog-item"> block below, linking to it
+      3. That's it — no build step, no config file, just HTML files
+    -->
+
+    <a class="blog-item" href="https://voxiitk.com/as-we-leave-10/">
+      <div class="news-date">May 30, 2019</div>
+      <div class="blog-item-title">Reflections at the end of undergrad</div>
+      <div class="blog-item-preview">
+        "...a time capsule of my present opinions, so we can all laugh at them collectively a few years down the line"
+      </div>
+      <span class="tag">Reflections</span>
+    </a>
+
+    <!-- <a class="blog-item" href="#">
+      <div class="news-date">May 2, 2026</div>
+      <div class="blog-item-title">An Intuitive Guide to Sparse Autoencoders</div>
+      <div class="blog-item-preview">
+        Sparse autoencoders are becoming a core tool in interpretability research.
+        This post explains the key ideas using analogies from signal processing
+        and everyday compression.
+      </div>
+      <span class="tag">Interpretability</span>
+      <span class="tag">Tutorial</span>
+    </a> -->
+
+    <!-- <a class="blog-item" href="#">
+      <div class="news-date">Mar 20, 2026</div>
+      <div class="blog-item-title">Notes on Linear Algebra for Mechanistic Interpretability</div>
+      <div class="blog-item-preview">
+        A collection of the linear algebra concepts I find myself using
+        most often in mech interp research, written for people who
+        already know the basics but want sharper intuition.
+      </div>
+      <span class="tag">Math</span>
+    </a>
+
+    <a class="blog-item" href="#">
+      <div class="news-date">Jan 8, 2026</div>
+      <div class="blog-item-title">Three Months at Anthropic: What I Learned</div>
+      <div class="blog-item-preview">
+        Reflections on my research visit — the surprises, the hard problems,
+        and the things I wish I'd known before starting.
+      </div>
+      <span class="tag">Personal</span>
+    </a> -->
+
+  </main>
+
+  <footer class="site-footer">
+    Harshit Bisht · Built with plain HTML & CSS
+  </footer>
+
+  <script>
+    function updateIcon() {
+      var theme = document.documentElement.getAttribute('data-theme');
+      document.getElementById('theme-icon').textContent = theme === 'dark' ? '☀' : '☾';
+    }
+    function toggleTheme() {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateIcon();
+    }
+    updateIcon();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harshit Bisht — Multimodal AI4Science</title>
+  <meta name="description" content="Personal website of Harshit Bisht, AI researcher working on multimodal AI4Science.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <!-- 
+    THEME SCRIPT — loads before the page renders to prevent 
+    a flash of the wrong theme. Think of it as checking whether
+    the lights should be on or off before you walk into the room,
+    rather than walking in, seeing it's wrong, then flipping the switch.
+  -->
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-name">Harshit Bisht</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="publications.html">Papers</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li>
+          <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+            <!-- JS below swaps this between ☀ and ☾ -->
+            <span id="theme-icon">☾</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="content">
+
+    <!-- BIO SECTION -->
+    <section class="hero">
+      <!--
+        Replace this placeholder with your actual photo.
+        To do that: put your photo file (e.g. photo.jpg) in the
+        same folder, then change the src below to "photo.jpg".
+        
+        The placeholder below generates a simple colored rectangle.
+        We use an inline SVG as a data URL so it works with no
+        external files — it's like embedding a tiny drawing directly
+        into the address of the image.
+      -->
+      <img
+        class="hero-photo"
+        src="photo.jpg"
+        alt="Photo of Harshit Bisht"
+      >
+      <div class="hero-text">
+        <h1>Harshit Bisht</h1>
+        <p class="subtitle">PhD @ <a href="https://scai.iitd.ac.in/" target="_blank">Yardi School of Artificial Intelligence</a> · <a href="https://www.iitd.ac.in" target="_blank">Indian Institute of Technology Delhi</a></p>
+        <p>
+          I work on building Multimodal Large Language Models (MLLMs) domain specialized on scientific and materials science data, with the ultimate goal of enabling autonomous scientific discovery and improving mechanistic understanding of scientific behavior by language models. Advised by <a href="https://www.cse.iitd.ac.in/~mausam/" target="_blank">Prof. Mausam</a> and <a href="https://web.iitd.ac.in/~krishnan/members/1_01_krishnan.html" target="_blank">Prof. N. M. Anoop Krishnan</a>.
+        </p>
+        <div class="hero-links">
+          <a href="mailto:harshit.bisht@scai.iitd.ac.in" target="_blank">Email</a>
+          <a href="https://scholar.google.com/citations?user=R3a7w4MAAAAJ&hl=en" target="_blank">Scholar</a>
+          <a href="https://www.linkedin.com/in/harshit-bisht/" target="_blank">LinkedIn</a>
+          <!-- <a href="https://github.com/souspilot" target="_blank">GitHub</a> -->
+          <!-- <a href="https://x.com/harshithebisht" target="_blank">Twitter</a> -->
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"><span class="diamond"></span></div>
+
+    <!-- NEWS SECTION -->
+    <section>
+      <h2>News</h2>
+
+      <div class="news-item">
+        <div class="news-date">Jun 2026</div>
+        <div class="news-text">
+          Awarded the prestigious <a href="https://indiaai.gov.in/hub/indiaai-futureskills" target="_blank">IndiaAI PhD Fellowship</a> with effect from Dec 2025.
+          <!-- <span class="tag">New position</span> -->
+        </div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-date">Feb 2026</div>
+        <div class="news-text">
+          Awarded Best Experimental Design at the <a href="https://www.einpresswire.com/article/889751837/rapidfire-ai-celebrates-winners-showcasing-how-to-build-better-llm-applications-faster" target="_blank">RapidFire AI 2026 Winter Competition on LLM Experimentation</a>.
+          <!-- <span class="tag">New position</span> -->
+        </div>
+      </div>
+      
+      <div class="news-item">
+        <div class="news-date">Aug 2025</div>
+        <div class="news-text">
+          Started a PhD at the Yardi School of Artificial Intelligence, IIT Delhi supported by <a href="https://phd.dic.gov.in/about" target="_blank">Visvesvaraya PhD Fellowship</a>.
+          <!-- <span class="tag">New position</span> -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    Harshit Bisht · Built with plain HTML & CSS
+  </footer>
+
+  <!-- THEME TOGGLE SCRIPT -->
+  <script>
+    // Update the icon to match the current theme
+    function updateIcon() {
+      var theme = document.documentElement.getAttribute('data-theme');
+      document.getElementById('theme-icon').textContent = theme === 'dark' ? '☀' : '☾';
+    }
+    // Toggle between light and dark
+    function toggleTheme() {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateIcon();
+    }
+    // Set the right icon on page load
+    updateIcon();
+  </script>
+
+</body>
+</html>

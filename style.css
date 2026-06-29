@@ -1,0 +1,596 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;700&display=swap');
+
+/* ---------- LIGHT THEME (default) ---------- */
+:root {
+  --bg:         #fafaf8;
+  --bg-surface: #eef0f2;
+  --text:       #1c1c28;
+  --text-muted: #5c5c6e;
+  --accent:     #3d5a80;
+  --accent-hover:#2c4460;
+  --pop:        #d65a31;
+  --pop-soft:   #d65a3118;
+  --border:     #d4d4d8;
+  --border-light:#e8e8ec;
+  --nav-bg:     #fafafaee;
+  --code-bg:    #e8e6e1;
+  --shadow:     0 1px 3px rgba(0,0,0,0.06);
+  --grid-dot:   #c8c8cc;
+  --tag-bg:     #3d5a8015;
+  --tag-text:   #3d5a80;
+}
+
+/* ---------- DARK THEME ----------
+   [data-theme="dark"] means "when the <html> tag has 
+   data-theme set to dark". A tiny JS snippet toggles this.
+*/
+[data-theme="dark"] {
+  --bg:         #111118;
+  --bg-surface: #1a1a24;
+  --text:       #e0ddd5;
+  --text-muted: #8e8e9a;
+  --accent:     #6fa3d4;
+  --accent-hover:#8fbce6;
+  --pop:        #e8764a;
+  --pop-soft:   #e8764a18;
+  --border:     #2a2a38;
+  --border-light:#222230;
+  --nav-bg:     #111118ee;
+  --code-bg:    #1e1e2a;
+  --shadow:     0 1px 3px rgba(0,0,0,0.3);
+  --grid-dot:   #252532;
+  --tag-bg:     #6fa3d418;
+  --tag-text:   #6fa3d4;
+}
+
+/* ---------- RESET & BASE ----------
+   A "reset" removes the default styling browsers add (margins,
+   paddings, weird font sizes). Think of it as cleaning a canvas
+   before painting so you start from a known blank state.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* This makes the dot-grid background — our signature element.
+     radial-gradient draws tiny circles, and the 24px 24px at
+     the end tiles them in a grid. Like graph paper but very faint. */
+  background:
+    radial-gradient(circle, var(--grid-dot) 0.8px, transparent 0.8px) 0 0 / 24px 24px,
+    var(--bg);
+  background-attachment: fixed;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 17px;
+  min-height: 100vh;
+  /* transition makes the theme switch animate smoothly instead
+     of snapping instantly — like a dimmer switch vs on/off */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ---------- NAVIGATION ----------
+   position: sticky makes the nav "stick" to the top of the screen
+   as you scroll, like a post-it note that stays in place while the
+   paper underneath slides past. backdrop-filter: blur adds a
+   frosted-glass effect so content scrolling behind it looks soft.
+*/
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  padding: 0 1.5rem;
+}
+
+.nav-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.nav-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+}
+
+/* Underline indicator for the currently active page */
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--pop);
+  border-radius: 1px;
+}
+
+/* Theme toggle button — the sun/moon switcher */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 6px 8px;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--text-muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+.theme-toggle:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+/* ---------- MAIN CONTENT CONTAINER ----------
+   max-width caps how wide the text gets. On a huge monitor, long
+   lines of text are hard to read — like trying to read a billboard
+   from 2 feet away. 780px keeps lines at ~75 characters, which
+   is the sweet spot for readability.
+*/
+.content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+/* ---------- TYPOGRAPHY ---------- */
+h1, h2, h3 {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.2s;
+}
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* ---------- HERO / BIO SECTION ---------- */
+.hero {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.hero-photo {
+  width: 300px;
+  height: 300px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+
+.hero-text .subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.hero-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.hero-links a {
+  font-size: 0.88rem;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.hero-links a:hover {
+  background: var(--bg-surface);
+  border-color: var(--accent);
+}
+
+/* ---------- SECTION DIVIDER ----------
+   Our QED-inspired divider: a thin line with a diamond in the center,
+   reminiscent of section breaks in math papers.
+*/
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0;
+}
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.divider .diamond {
+  width: 6px;
+  height: 6px;
+  background: var(--pop);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* ---------- NEWS / UPDATES ---------- */
+.news-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.news-item:last-child {
+  border-bottom: none;
+}
+
+.news-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.news-text {
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+/* ---------- TAGS ---------- */
+.tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 2px 10px;
+  border-radius: 4px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  text-decoration: none;
+  margin-right: 0.4rem;
+}
+
+/* ---------- PUBLICATION LIST ---------- */
+.pub-item {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.pub-item:last-child {
+  border-bottom: none;
+}
+
+.pub-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
+
+.pub-authors {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.pub-venue {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.pub-links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.pub-links a {
+  font-size: 0.82rem;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 2px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.pub-links a:hover {
+  background: var(--bg-surface);
+  border-color: var(--accent);
+}
+
+/* ---------- BLOG LIST ---------- */
+.blog-item {
+  display: block;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border-light);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+.blog-item:hover {
+  opacity: 0.75;
+}
+.blog-item:last-child {
+  border-bottom: none;
+}
+
+.blog-item-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.blog-item-preview {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- BLOG POST ---------- */
+.post-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.post-body h2 {
+  font-size: 1.25rem;
+  margin-top: 2rem;
+}
+
+.post-body h3 {
+  font-size: 1.05rem;
+  margin-top: 1.5rem;
+}
+
+.post-body blockquote {
+  border-left: 3px solid var(--pop);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.post-body code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.88em;
+  background: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.post-body pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.post-body pre code {
+  background: none;
+  padding: 0;
+}
+
+.post-body img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.post-body ul, .post-body ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.post-body li {
+  margin-bottom: 0.4rem;
+}
+
+/* Back link at top of blog posts */
+.back-link {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s;
+}
+.back-link:hover {
+  color: var(--text);
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ---------- YEAR GROUPING (for publications/blog) ---------- */
+.year-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--pop);
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.05em;
+}
+.year-label:first-child {
+  margin-top: 0;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   
+   @media queries are like if-statements for screen size.
+   "If the screen is narrower than 640px, apply these rules."
+   This is how the site adapts from desktop → tablet → phone
+   without any JavaScript framework.
+   ============================================ */
+
+/* Tablet & small laptop */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  .hero {
+    gap: 1.5rem;
+  }
+  .hero-photo {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+/* Phone */
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+  
+  .nav-inner {
+    height: 50px;
+  }
+  .nav-name {
+    font-size: 0.95rem;
+  }
+  .nav-links {
+    gap: 1rem;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+  }
+
+  .content {
+    padding: 1.5rem 1.25rem 3rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  /* On phones, stack the photo above the text instead of side-by-side */
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-photo {
+    width: 120px;
+    height: 120px;
+  }
+  .hero-links {
+    justify-content: center;
+  }
+}
+
+/* ---------- ACCESSIBILITY ----------
+   prefers-reduced-motion: if the user has told their operating
+   system they're sensitive to motion/animation, we turn off
+   all transitions. Like having a "no flash photography" mode.
+*/
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--pop);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
